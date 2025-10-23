@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFDverse Academy | CFD Training & Consulting Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0c101b;
+            --primary-glow: #00e0ff;
+            --accent-blue: #0078ff;
+            --text-light: #e9f9ff;
+            --card-bg: rgba(20, 25, 40, 0.8);
+            --card-border: rgba(0, 224, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Canvas Background */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Main Content Wrapper */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(12, 16, 27, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 224, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-glow);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-glow);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-glow);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-glow);
+            margin: 4px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 5% 80px;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 1s;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s 0.2s both;
+            color: var(--text-light);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-blue));
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px rgba(0, 224, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 224, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-glow);
+            border: 2px solid var(--primary-glow);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-glow);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px rgba(0, 224, 255, 0.4);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-glow), var(--accent-blue));
+            margin: 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s;
+            text-align: center;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-glow);
+            box-shadow: 0 20px 60px rgba(0, 224, 255, 0.3);
+        }
+
+        .about-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+        }
+
+        .about-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            color: var(--text-light);
+        }
+
+        /* Course Cards */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 224, 255, 0.1), rgba(0, 120, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 224, 255, 0.3);
+            border-color: var(--primary-glow);
+        }
+
+        .course-card:hover::before {
+            opacity: 1;
+        }
+
+        .course-header {
+            background: linear-gradient(135deg, rgba(0, 224, 255, 0.2), rgba(0, 120, 255, 0.2));
+            padding: 2.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-glow);
+        }
+
+        .course-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-glow);
+        }
+
+        .course-header p {
+            opacity: 0.8;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .course-body {
+            padding: 2.5rem;
+        }
+
+        .course-body ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .course-body ul li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .course-body ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-glow);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .resource-links {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+        }
+
+        .resource-links h3 {
+            color: var(--primary-glow);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .link-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .link-btn {
+            padding: 0.8rem 1.8rem;
+            background: rgba(0, 224, 255, 0.1);
+            border: 1px solid var(--primary-glow);
+            border-radius: 30px;
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .link-btn:hover {
+            background: var(--primary-glow);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 224, 255, 0.4);
+        }
+
+        /* Mentorship Section */
+        .mentorship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .mentorship-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .mentorship-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-blue));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .mentorship-card:hover::after {
+            opacity: 1;
+        }
+
+        .mentorship-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+        }
+
+        .mentorship-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .mentorship-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--text-light);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary-glow);
+            box-shadow: 0 10px 40px rgba(0, 224, 255, 0.2);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-glow);
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 6rem;
+            color: var(--primary-glow);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-glow);
+        }
+
+        .testimonial-card p {
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        /* Contact Form */
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--text-light);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(20, 25, 40, 0.6);
+            border: 2px solid var(--card-border);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 180px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+        }
+
+        .social-link:hover {
+            color: var(--primary-glow);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+        }
+
+        .message {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(0, 224, 255, 0.1);
+            border: 2px solid var(--primary-glow);
+            color: var(--primary-glow);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 2px solid rgba(0, 224, 255, 0.2);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Scroll Animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                background: rgba(12, 16, 27, 0.98);
+                flex-direction: column;
+                padding: 3rem;
+                gap: 1.5rem;
+                transition: left 0.4s;
+                border-top: 1px solid rgba(0, 224, 255, 0.2);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .courses-grid,
+            .projects-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mentorship-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .link-buttons {
+                flex-direction: column;
+            }
+
+            .link-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Canvas Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Navigation -->
+        <nav>
+            <div class="nav-container">
+                <a href="#home" class="logo-container">
+                    <img src="website-logo.jpg" alt="CFDverse Logo" class="logo-img">
+                    <span class="logo-text">CFDverse</span>
+                </a>
+                <div class="menu-toggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                    <li><a href="#about" onclick="closeMenu()">About</a></li>
+                    <li><a href="#courses" onclick="closeMenu()">Training</a></li>
+                    <li><a href="#consulting" onclick="closeMenu()">Consulting</a></li>
+                    <li><a href="#mentorship" onclick="closeMenu()">Mentorship</a></li>
+                    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                    <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
+                    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Professional CFD Training<br>& Consulting Services</h1>
+                <p>Master computational fluid dynamics from fundamentals to advanced applications. Expert-led training programs and industry-grade consulting services to accelerate your projects and career.</p>
+                <div class="hero-buttons">
+                    <a href="#courses" class="btn btn-primary">Explore Training Programs</a>
+                    <a href="#consulting" class="btn btn-secondary">Consulting Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="scroll-animate">
+            <h2 class="section-title">Why Choose CFDverse?</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>🎓 Expert Training</h3>
+                    <p>Learn from industry professionals with extensive experience across multiple CFD platforms and diverse engineering applications.</p>
+                </div>
+                <div class="about-card">
+                    <h3>💼 Industry Consulting</h3>
+                    <p>Get professional consulting services for complex fluid dynamics problems across various industries including HVAC, energy, and manufacturing.</p>
+                </div>
+                <div class="about-card">
+                    <h3>💻 Practical Approach</h3>
+                    <p>Hands-on training with real industrial projects, from theory to simulation setup and result validation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Section -->
+        <section id="courses" class="scroll-animate">
+            <h2 class="section-title">CFD Training Programs</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>CFD for Beginners</h3>
+                        <p>Start Your CFD Journey</p>
+                    </div>
+                    <div class="course-body">
+                        <ul>
+                            <li>Fundamentals of fluid mechanics</li>
+                            <li>Mesh generation essentials</li>
+                            <li>Boundary conditions & solver basics</li>
+                            <li>Post-processing techniques</li>
+                            <li>Simple simulation projects</li>
+                            <li>Result interpretation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>CFD to Expert Level</h3>
+                        <p>Advanced Techniques & Mastery</p>
+                    </div>
+                    <div class="course-body">
+                        <ul>
+                            <li>Advanced turbulence modeling</li>
+                            <li>Multiphase flow simulations</li>
+                            <li>Heat transfer & conjugate analysis</li>
+                            <li>Transient simulations</li>
+                            <li>Optimization techniques</li>
+                            <li>Custom functions & scripting</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Industrial Projects</h3>
+                        <p>Real-World Applications</p>
+                    </div>
+                    <div class="course-body">
+                        <ul>
+                            <li>Complete project workflows</li>
+                            <li>Industry-standard practices</li>
+                            <li>Design optimization cases</li>
+                            <li>Performance analysis</li>
+                            <li>Report writing & documentation</li>
+                            <li>Client presentation skills</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Open-Source Software</h3>
+                        <p>Master Free CFD Tools</p>
+                    </div>
+                    <div class="course-body">
+                        <ul>
+                            <li>Open-source platform setup</li>
+                            <li>Case file structure</li>
+                            <li>Solver customization</li>
+                            <li>Scripting & automation</li>
+                            <li>Visualization techniques</li>
+                            <li>Community resources</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Interview Preparation</h3>
+                        <p>Land Your Dream CFD Job</p>
+                    </div>
+                    <div class="course-body">
+                        <ul>
+                            <li>Technical interview topics</li>
+                            <li>Problem-solving strategies</li>
+                            <li>Portfolio development</li>
+                            <li>Resume optimization</li>
+                            <li>Mock interview sessions</li>
+                            <li>Industry insights</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Career Guidance</h3>
+                        <p>Navigate Your CFD Career</p>
+                    </div>
+                    <div class="course-body">
+                        <ul>
+                            <li>Career path planning</li>
+                            <li>Skill development roadmap</li>
+                            <li>Industry specializations</li>
+                            <li>Networking strategies</li>
+                            <li>Continuous learning resources</li>
+                            <li>Professional growth tips</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-links">
+                <h3>📚 Learning Resources & Community</h3>
+                <div class="link-buttons">
+                    <a href="https://www.youtube.com/@CFDverse" target="_blank" class="link-btn">▶️ YouTube Channel</a>
+                    <a href="https://www.youtube.com/watch?v=_smyom_84Ro" target="_blank" class="link-btn">🎓 Beginner Tutorial</a>
+                    <a href="https://www.youtube.com/watch?v=fgis6dLA6k0" target="_blank" class="link-btn">🔬 Advanced Tutorial</a>
+                    <a href="https://www.youtube.com/watch?v=OCa8IbYP0j4" target="_blank" class="link-btn">💼 Project Examples</a>
+                    <a href="https://www.youtube.com/watch?v=UGtWUM4yxU0" target="_blank" class="link-btn">🆓 Open-Source Guide</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Consulting Section -->
+        <section id="consulting" class="scroll-animate">
+            <h2 class="section-title">CFD Consulting Services</h2>
+            <div class="mentorship-intro">
+                Professional CFD consulting services for industries worldwide. From concept to detailed analysis, we deliver accurate simulations and actionable insights for your engineering challenges.
+            </div>
+            <div class="mentorship-grid">
+                <div class="mentorship-card">
+                    <h3>Project-Based Consulting</h3>
+                    <p>Comprehensive CFD analysis services tailored to your specific project requirements. We handle everything from geometry preparation to final report delivery.</p>
+                    <p style="margin-top: 1.5rem;"><strong>Services Include:</strong></p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Problem definition & methodology
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Complete simulation setup
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Result analysis & validation
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Professional reports & documentation
+                        </li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="window.location.href='#contact'">Get Quote</button>
+                    </div>
+                </div>
+
+                <div class="mentorship-card">
+                    <h3>Technical Support & Advisory</h3>
+                    <p>Ongoing technical support for your in-house CFD team. Expert guidance on complex simulations, troubleshooting, and best practices.</p>
+                    <p style="margin-top: 1.5rem;"><strong>Services Include:</strong></p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Simulation strategy consultation
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Troubleshooting complex cases
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Workflow optimization
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Quality assurance review
+                        </li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="window.location.href='#contact'">Get Quote</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentorship Section -->
+        <section id="mentorship" class="scroll-animate">
+            <h2 class="section-title">1:1 Personal Mentorship</h2>
+            <div class="mentorship-intro">
+                Get personalized mentorship for your CFD projects, thesis, or career development. One-on-one guidance from experienced professionals to accelerate your learning.
+            </div>
+            <div class="mentorship-grid">
+                <div class="mentorship-card">
+                    <h3>Project Mentorship</h3>
+                    <p>Dedicated mentorship for your academic or professional CFD projects. Get guidance on project planning, execution, and documentation.</p>
+                    <p style="margin-top: 1.5rem;"><strong>What You Get:</strong></p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Personalized learning path
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Project review & feedback
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Troubleshooting support
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Email & call support
+                        </li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="window.location.href='#contact'">Get in Touch</button>
+                    </div>
+                </div>
+
+                <div class="mentorship-card">
+                    <h3>Career Mentorship</h3>
+                    <p>Comprehensive career guidance including skill development, portfolio building, and job search strategies in the CFD industry.</p>
+                    <p style="margin-top: 1.5rem;"><strong>What You Get:</strong></p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Career path consultation
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Resume & portfolio review
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Interview preparation
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--primary-glow); font-weight: bold;">✓</span>
+                            Industry networking tips
+                        </li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="window.location.href='#contact'">Get in Touch</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="scroll-animate">
+            <h2 class="section-title">Industry Projects We Handle</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>🌬️ HVAC Systems</h3>
+                    <p>Comprehensive HVAC analysis including airflow distribution, thermal comfort, energy efficiency, and indoor air quality for commercial and residential buildings.</p>
+                </div>
+                <div class="project-card">
+                    <h3>⚙️ Valve Analysis</h3>
+                    <p>Flow characterization, pressure drop analysis, cavitation studies, and structural coupling for various valve types including butterfly, ball, and control valves.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🏥 Cleanroom Design</h3>
+                    <p>Particle tracking, contamination control, airflow patterns, and pressure differential analysis for pharmaceutical and semiconductor cleanrooms.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🔋 Battery Pack Cooling</h3>
+                    <p>Thermal management optimization, cooling system design, temperature uniformity analysis, and safety studies for electric vehicle battery systems.</p>
+                </div>
+                <div class="project-card">
+                    <h3>☀️ Solar Industry</h3>
+                    <p>Wind loading analysis on solar panels, mounting structure optimization, wake effect studies, and energy yield predictions for solar farms.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🧪 Mixing Tanks</h3>
+                    <p>Mixing efficiency analysis, impeller design optimization, power consumption studies, and multiphase mixing simulations for industrial processes.</p>
+                </div>
+                <div class="project-card">
+                    <h3>💨 Porous Media Flow</h3>
+                    <p>Flow through filters, catalytic converters, packed beds, and porous structures. Pressure drop characterization and filtration efficiency analysis.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🔥 Heat Exchangers</h3>
+                    <p>Thermal performance optimization, effectiveness analysis, flow distribution studies, and design modifications for various heat exchanger configurations.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🌀 Ceiling Fans</h3>
+                    <p>Aerodynamic optimization, air delivery performance, noise analysis, and energy efficiency improvements for residential and industrial fans.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="scroll-animate">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>The training program was exceptional. Practical approach with real projects helped me transition from academic knowledge to industry-ready skills.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Professional consulting service that delivered accurate results on time. The team understood our requirements perfectly and provided valuable insights.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Excellent mentorship experience. The one-on-one guidance helped me complete my thesis project successfully and improved my overall CFD understanding.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Clear explanations, industry-relevant examples, and hands-on practice. This training significantly boosted my confidence in handling complex simulations.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Outstanding consulting work on our HVAC project. Detailed analysis, professional reports, and excellent communication throughout the project.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>The career guidance session was incredibly helpful. Got practical advice on skill development and job search strategies that actually work.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-animate">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    Ready to start your CFD journey or discuss your project requirements? Let's connect and explore how we can help you achieve your goals.
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Interested In</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="training">Training Programs</option>
+                            <option value="consulting">Consulting Services</option>
+                            <option value="mentorship">Personal Mentorship</option>
+                            <option value="other">Other Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell us about your requirements..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <div class="message" id="responseMessage"></div>
+                </form>
+
+                <div class="social-links">
+                    <a href="mailto:contact@cfdverse.com" class="social-link">📧 Email</a>
+                    <a href="https://www.youtube.com/@CFDverse" target="_blank" class="social-link">▶️ YouTube</a>
+                    <a href="https://linkedin.com/company/cfdverse" target="_blank" class="social-link">🔗 LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">© 2025 CFDverse Academy</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">Empowering Engineers Through Computational Excellence</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 224, 255, 0.5)';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 10000));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 224, 255, ${0.2 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initCanvas();
+        initParticles();
+        animate();
+
+        window.addEventListener('resize', () => {
+            initCanvas();
+            initParticles();
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Mobile Menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
+        // Scroll Animations
+        const scrollElements = document.querySelectorAll('.scroll-animate');
+
+        const elementInView = (el, offset = 100) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('active');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 100)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        handleScrollAnimation();
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+            const responseMessage = document.getElementById('responseMessage');
+            
+            const emailBody = `Name: ${name}%0D%0AEmail: ${email}%0D%0AService: ${service}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
+            const mailtoLink = `mailto:contact@cfdverse.com?subject=CFDverse Inquiry - ${service}&body=${emailBody}`;
+            
+            window.location.href = mailtoLink;
+            
+            responseMessage.textContent = 'Email client opened! Please send the email from your application.';
+            responseMessage.className = 'message success';
+            responseMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                this.reset();
+                responseMessage.style.display = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
