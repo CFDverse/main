@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFD Blog - Tips, Tutorials & Industry Insights | CFDverse</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Expert CFD tutorials, tips, and industry insights. Learn computational fluid dynamics through practical guides, case studies, and career advice from CFD professionals.">
+    <meta name="keywords" content="CFD blog, CFD tutorials, CFD course, CFD training, computational fluid dynamics guide, CFD tips, CFD career, learn CFD, CFD case studies">
+    <link rel="canonical" href="https://www.cfdverse.co.in/blog.html">
+    
+    <!-- Reuse same CSS from main page -->
+    <style>
+        /* Copy all CSS from your index.html <style> section */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0a1628;
+            --velocity-cyan: #00e5ff;
+            --pressure-blue: #2979ff;
+            --temperature-purple: #e040fb;
+            --text-light: #ffffff;
+            --card-bg: rgba(20, 30, 50, 0.95);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #0a1628;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Blog-specific styles */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 5% 80px;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--velocity-cyan);
+            box-shadow: 0 20px 50px rgba(0, 229, 255, 0.3);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(41, 121, 255, 0.2));
+        }
+        
+        .blog-content {
+            padding: 2rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--velocity-cyan);
+            margin-bottom: 1rem;
+        }
+        
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .blog-excerpt {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--velocity-cyan), var(--pressure-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Simple Navigation -->
+    <nav style="position: fixed; top: 0; width: 100%; background: rgba(10, 22, 40, 0.98); padding: 1.5rem 5%; z-index: 1000; border-bottom: 2px solid var(--velocity-cyan);">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="color: var(--velocity-cyan); font-size: 1.8rem; font-weight: 800; text-decoration: none;">← CFDverse</a>
+            <a href="index.html#contact" style="padding: 0.8rem 2rem; background: linear-gradient(135deg, var(--velocity-cyan), var(--pressure-blue)); color: white; text-decoration: none; border-radius: 25px; font-weight: 600;">Contact Us</a>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <h1 style="font-size: 3.5rem; text-align: center; background: linear-gradient(135deg, var(--velocity-cyan), var(--pressure-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">CFD Blog</h1>
+        <p style="text-align: center; font-size: 1.3rem; color: rgba(255, 255, 255, 0.8); max-width: 800px; margin: 0 auto 3rem;">Expert tutorials, industry insights, and practical guides to master computational fluid dynamics</p>
+
+        <div class="blog-grid">
+            
+            <!-- Blog Post 1 -->
+            <div class="blog-card">
+                <div class="blog-image"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>📅 Oct 26, 2025</span>
+                        <span>📖 5 min read</span>
+                    </div>
+                    <h2 class="blog-title">Complete Guide to CFD for Beginners in 2025</h2>
+                    <p class="blog-excerpt">Everything you need to know to start your CFD journey. Learn the basics, choose the right software, and build your first simulation project.</p>
+                    <a href="blog-cfd-beginners-guide.html" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="blog-card">
+                <div class="blog-image"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>📅 Oct 25, 2025</span>
+                        <span>📖 8 min read</span>
+                    </div>
+                    <h2 class="blog-title">Top 5 CFD Software Comparison: Which One to Learn First?</h2>
+                    <p class="blog-excerpt">Detailed comparison of ANSYS, OpenFOAM, COMSOL, Star-CCM+, and more. Find the best CFD software for your career goals and budget.</p>
+                    <a href="blog-cfd-software-comparison.html" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="blog-card">
+                <div class="blog-image"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>📅 Oct 24, 2025</span>
+                        <span>📖 10 min read</span>
+                    </div>
+                    <h2 class="blog-title">How to Get a CFD Job in 2025: Complete Career Guide</h2>
+                    <p class="blog-excerpt">From resume building to interview preparation, learn exactly what skills you need and how to land your first CFD engineering job.</p>
+                    <a href="blog-cfd-job-guide.html" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <!-- Add more blog cards as you create articles -->
+
+        </div>
+    </div>
+</body>
+</html>
