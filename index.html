@@ -1223,6 +1223,25 @@
                 <div class="contact-info">
                     Ready to start your CFD journey or discuss your project requirements? Let's connect and explore how we can help you achieve your goals.
                 </div>
+<!-- ADD THIS NEW SECTION -->
+<div class="contact-details" style="text-align: center; margin-bottom: 3rem; padding: 2rem; background: var(--card-bg); border-radius: 15px; border: 2px solid rgba(0, 229, 255, 0.3);">
+    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.5rem; font-size: 1.8rem;">📞 Quick Contact</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: center;">
+        <div>
+            <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 0.5rem;">📧 Email:</p>
+            <a href="mailto:cfdverse@gmail.com" style="color: var(--velocity-cyan); text-decoration: none; font-size: 1.2rem; font-weight: 600;">cfdverse@gmail.com</a>
+        </div>
+        <div>
+            <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 0.5rem;">📞 Phone:</p>
+            <a href="tel:+917304941446" style="color: var(--velocity-cyan); text-decoration: none; font-size: 1.2rem; font-weight: 600;">+91 7304941446</a>
+        </div>
+        <div>
+            <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 0.5rem;">💬 WhatsApp:</p>
+            <a href="https://wa.me/919876543210" target="_blank" style="color: var(--velocity-cyan); text-decoration: none; font-size: 1.2rem; font-weight: 600;">Message Us</a>
+        </div>
+    </div>
+</div>
+<!-- END NEW SECTION -->
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Full Name</label>
@@ -1246,15 +1265,53 @@
                         <label for="message">Message</label>
                         <textarea id="message" name="message" required placeholder="Tell us about your requirements..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                    <div class="message" id="responseMessage"></div>
+                    <form id="contactForm">
+    <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+        <label for="email">Email Address (Optional if using WhatsApp)</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone Number (Optional)</label>
+        <input type="tel" id="phone" name="phone" placeholder="+91 7304941446">
+    </div>
+    <div class="form-group">
+        <label for="service">Service Interested In</label>
+        <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option value="training">Training Programs</option>
+            <option value="consulting">Consulting Services</option>
+            <option value="mentorship">Personal Mentorship</option>
+            <option value="other">Other Inquiry</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="Tell us about your requirements..."></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+        <button type="submit" class="btn btn-primary">📧 Send via Email</button>
+        <button type="button" onclick="sendViaWhatsApp()" class="btn btn-secondary">💬 Send via WhatsApp</button>
+    </div>
+    
+    <div class="message" id="responseMessage"></div>
+</form>
                 </form>
 
-                <div class="social-links">
-                    <a href="mailto:cfdverse@gmail.com" class="social-link">📧 Email</a>
-                    <a href="https://www.youtube.com/@CFDverse" target="_blank" class="social-link">▶️ YouTube</a>
-                    <a href="https://www.linkedin.com/in/cfdverse/" target="_blank" class="social-link">🔗 LinkedIn</a>
-                </div>
+              <div class="social-links">
+    <a href="mailto:cfdverse@gmail.com" class="social-link">📧 Email</a>
+    <a href="tel:+917304941446" class="social-link">📞 +91 7304941446</a>
+    <a href="https://wa.me/+917304941446?text=Hi%20CFDverse,%20I'm%20interested%20in%20CFD%20training" target="_blank" class="social-link">💬 WhatsApp</a>
+    <a href="https://www.youtube.com/@CFDverse" target="_blank" class="social-link">▶️ YouTube</a>
+    <a href="https://www.linkedin.com/in/cfdverse/" target="_blank" class="social-link">🔗 LinkedIn</a>
+    <a href="https://x.com/CFDverse" target="_blank" class="social-link">🐦 Twitter</a>
+    <a href="https://www.reddit.com/user/Own_Maintenance_2004/" target="_blank" class="social-link">🤖 Reddit</a>
+    <a href="https://www.instagram.com/cfdverse/" target="_blank" class="social-link">📸 Instagram</a>
+</div>
             </div>
         </section>
 
@@ -1392,34 +1449,73 @@
 
         window.addEventListener('scroll', handleScrollAnimation);
         handleScrollAnimation();
+// WhatsApp Function
+function sendViaWhatsApp() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value || 'Not provided';
+    const phone = document.getElementById('phone').value || 'Not provided';
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value;
+    
+    if (!name || !service || !message) {
+        alert('Please fill in Name, Service, and Message fields');
+        return;
+    }
+    
+    const whatsappMessage = `Hi CFDverse Team!%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AInterested in: ${service}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
+    
+    // Replace with your WhatsApp number (include country code without + or spaces)
+    const whatsappNumber = '917304941446';
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+    
+    const responseMessage = document.getElementById('responseMessage');
+    responseMessage.textContent = 'WhatsApp opened! Please send your message.';
+    responseMessage.className = 'message success';
+    responseMessage.style.display = 'block';
+    
+    setTimeout(() => {
+        document.getElementById('contactForm').reset();
+        responseMessage.style.display = 'none';
+    }, 3000);
+}
 
-        // Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const service = document.getElementById('service').value;
-            const message = document.getElementById('message').value;
-            const responseMessage = document.getElementById('responseMessage');
-            
-            const emailBody = `Name: ${name}%0D%0AEmail: ${email}%0D%0AService: ${service}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
-            const mailtoLink = `mailto:cfdverse@gmail.com?subject=CFDverse Inquiry - ${service}&body=${emailBody}`;
-            
-            window.location.href = mailtoLink;
-            
-            responseMessage.textContent = 'Email client opened! Please send the email from your application.';
-            responseMessage.className = 'message success';
-            responseMessage.style.display = 'block';
-            
-            setTimeout(() => {
-                this.reset();
-                responseMessage.style.display = 'none';
-            }, 3000);
-        });
+// Email Form Submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value || 'Not provided';
+    const phone = document.getElementById('phone').value || 'Not provided';
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value;
+    const responseMessage = document.getElementById('responseMessage');
+    
+    if (!email || email === 'Not provided') {
+        alert('Please provide an email address or use WhatsApp option');
+        return;
+    }
+    
+    const emailBody = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AService: ${service}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
+    const mailtoLink = `mailto:cfdverse@gmail.com?subject=CFDverse Inquiry - ${service}&body=${emailBody}`;
+    
+    window.location.href = mailtoLink;
+    
+    responseMessage.textContent = 'Email client opened! Please send the email from your application.';
+    responseMessage.className = 'message success';
+    responseMessage.style.display = 'block';
+    
+    setTimeout(() => {
+        this.reset();
+        responseMessage.style.display = 'none';
+    }, 3000);
+});
+
     </script>
 </body>
 </html>
+
 
 
 
