@@ -6,4 +6,28 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+    <!-- Blog Post 1: CFD Beginners Guide -->
+  <url>
+    <loc>https://www.cfdverse.co.in/blog-cfd-beginners-guide.html</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Post 2: CFD Software Comparison -->
+  <url>
+    <loc>https://www.cfdverse.co.in/blog-cfd-software-comparison.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Post 3: CFD Job Guide -->
+  <url>
+    <loc>https://www.cfdverse.co.in/blog-cfd-job-guide.html</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
