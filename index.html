@@ -1265,74 +1265,123 @@
                 </div>
             </div>
         </section>
-        <!-- FAQ Section -->
+                <!-- FAQ Section with Accordion -->
         <section id="faq" class="scroll-animate">
-            <h2 class="section-title">Frequently Asked Questions About CFD Training</h2>
+            <h2 class="section-title">Frequently Asked Questions About CFD </h2>
             <div style="max-width: 1000px; margin: 0 auto;">
                 
                 <!-- FAQ 1 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">What is CFD (Computational Fluid Dynamics)?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">Computational Fluid Dynamics (CFD) is a branch of fluid mechanics that uses numerical analysis and data structures to analyze and solve problems involving fluid flows. CFD software solves the governing equations of fluid motion (Navier-Stokes equations) using computational methods. It's widely used in aerospace, automotive, HVAC, energy, and biomedical industries to simulate airflow, heat transfer, and fluid behavior without expensive physical testing.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">What is CFD (Computational Fluid Dynamics)?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">Computational Fluid Dynamics (CFD) is a branch of fluid mechanics that uses numerical analysis and data structures to analyze and solve problems involving fluid flows. CFD software solves the governing equations of fluid motion (Navier-Stokes equations) using computational methods. It's widely used in aerospace, automotive, HVAC, energy, and biomedical industries to simulate airflow, heat transfer, and fluid behavior without expensive physical testing.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 2 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">How long does it take to learn CFD?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">Learning CFD depends on your background and goals. For beginners with engineering basics, fundamental CFD skills can be acquired in 2-3 months through structured courses. To reach intermediate level with practical project experience typically takes 4-6 months. Achieving expert-level proficiency with advanced turbulence modeling, optimization, and industry-ready skills usually requires 8-12 months of dedicated learning with real-world projects and mentorship.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">How long does it take to learn CFD?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">Learning CFD depends on your background and goals. For beginners with engineering basics, fundamental CFD skills can be acquired in 2-3 months through structured courses. To reach intermediate level with practical project experience typically takes 4-6 months. Achieving expert-level proficiency with advanced turbulence modeling, optimization, and industry-ready skills usually requires 8-12 months of dedicated learning with real-world projects and mentorship.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 3 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">What is the fees for CFD course in India?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">CFD course fees in India vary significantly based on duration, institute, and course level. Short-term online courses range from ₹5,000 to ₹15,000 for 1-2 months. Comprehensive training programs with live projects cost ₹20,000 to ₹50,000 for 3-6 months. Advanced certification courses with industry mentorship can range from ₹50,000 to ₹1,50,000. At CFDverse, we offer flexible pricing with customized packages based on your learning goals and experience level.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">What is the fees for CFD course in India?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">CFD course fees in India vary significantly based on duration, institute, and course level. Short-term online courses range from ₹5,000 to ₹15,000 for 1-2 months. Comprehensive training programs with live projects cost ₹20,000 to ₹50,000 for 3-6 months. Advanced certification courses with industry mentorship can range from ₹50,000 to ₹1,50,000. At CFDverse, we offer flexible pricing with customized packages based on your learning goals and experience level.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 4 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">Which software is best for CFD?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">The best CFD software depends on your industry and application. ANSYS Fluent is the industry standard for complex simulations with excellent solver capabilities and wide industry adoption. ANSYS CFX excels in turbomachinery applications. OpenFOAM is the leading open-source option, free and highly customizable but with a steeper learning curve. COMSOL Multiphysics offers great multiphysics coupling. Star-CCM+ provides excellent meshing automation. For beginners, we recommend starting with either ANSYS (industry standard) or OpenFOAM (free learning).</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">Which software is best for CFD?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">The best CFD software depends on your industry and application. ANSYS Fluent is the industry standard for complex simulations with excellent solver capabilities and wide industry adoption. ANSYS CFX excels in turbomachinery applications. OpenFOAM is the leading open-source option, free and highly customizable but with a steeper learning curve. COMSOL Multiphysics offers great multiphysics coupling. Star-CCM+ provides excellent meshing automation. For beginners, we recommend starting with either ANSYS (industry standard) or OpenFOAM (free learning).</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 5 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">Is CFD in demand? What are CFD job opportunities?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">Yes, CFD skills are in high demand across multiple industries. Automotive companies need CFD engineers for aerodynamics and thermal management. Aerospace firms require CFD expertise for aircraft design. HVAC companies seek CFD professionals for building optimization. Energy sector needs CFD for turbine design and thermal analysis. Manufacturing industries use CFD for process optimization. Current CFD engineer salaries range from ₹4-6 LPA for freshers to ₹15-25 LPA for experienced professionals in India. Globally, CFD engineers earn $70,000-$120,000 annually.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">Is CFD in demand? What are CFD job opportunities?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">Yes, CFD skills are in high demand across multiple industries. Automotive companies need CFD engineers for aerodynamics and thermal management. Aerospace firms require CFD expertise for aircraft design. HVAC companies seek CFD professionals for building optimization. Energy sector needs CFD for turbine design and thermal analysis. Manufacturing industries use CFD for process optimization. Current CFD engineer salaries range from ₹4-6 LPA for freshers to ₹15-25 LPA for experienced professionals in India. Globally, CFD engineers earn $70,000-$120,000 annually.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 6 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">Can I learn CFD without an engineering degree?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">While an engineering background (mechanical, aerospace, chemical) provides strong foundations, you can learn CFD with a science or mathematics background. Essential prerequisites include basic fluid mechanics concepts, understanding of heat transfer fundamentals, knowledge of differential equations, and familiarity with numerical methods. Many successful CFD professionals started with physics, mathematics, or applied sciences degrees and built CFD expertise through dedicated training and project work.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">Can I learn CFD without an engineering degree?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">While an engineering background (mechanical, aerospace, chemical) provides strong foundations, you can learn CFD with a science or mathematics background. Essential prerequisites include basic fluid mechanics concepts, understanding of heat transfer fundamentals, knowledge of differential equations, and familiarity with numerical methods. Many successful CFD professionals started with physics, mathematics, or applied sciences degrees and built CFD expertise through dedicated training and project work.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 7 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">What are the applications of CFD?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">CFD has diverse applications across industries. In aerospace: aircraft aerodynamics, jet engine design, and rocket propulsion analysis. Automotive: vehicle aerodynamics, engine cooling, and HVAC system optimization. Energy: wind turbine design, combustion analysis, and heat exchanger optimization. HVAC: building ventilation, cleanroom design, and thermal comfort analysis. Biomedical: blood flow simulation, respiratory system modeling, and drug delivery optimization. Manufacturing: mixing processes, chemical reactors, and pollution control.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">What are the applications of CFD?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">CFD has diverse applications across industries. In aerospace: aircraft aerodynamics, jet engine design, and rocket propulsion analysis. Automotive: vehicle aerodynamics, engine cooling, and HVAC system optimization. Energy: wind turbine design, combustion analysis, and heat exchanger optimization. HVAC: building ventilation, cleanroom design, and thermal comfort analysis. Biomedical: blood flow simulation, respiratory system modeling, and drug delivery optimization. Manufacturing: mixing processes, chemical reactors, and pollution control.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 8 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">Do I need coding skills for CFD?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">Basic coding skills significantly enhance your CFD capabilities but aren't always mandatory for entry-level work. Most commercial CFD software (ANSYS, Star-CCM+) offers GUI interfaces for standard simulations. However, programming knowledge in Python, MATLAB, or C++ is highly valuable for automation, custom post-processing, result analysis, and advanced simulations. For OpenFOAM users, C++ knowledge is beneficial. We recommend learning Python scripting alongside CFD for maximum career advantages.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">Do I need coding skills for CFD?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">Basic coding skills significantly enhance your CFD capabilities but aren't always mandatory for entry-level work. Most commercial CFD software (ANSYS, Star-CCM+) offers GUI interfaces for standard simulations. However, programming knowledge in Python, MATLAB, or C++ is highly valuable for automation, custom post-processing, result analysis, and advanced simulations. For OpenFOAM users, C++ knowledge is beneficial. We recommend learning Python scripting alongside CFD for maximum career advantages.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 9 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">How much does a CFD engineer earn in India?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">CFD engineer salaries in India vary by experience, location, and industry. Fresh graduates with CFD skills earn ₹3.5-6 LPA. Engineers with 2-4 years experience make ₹6-12 LPA. Senior CFD engineers with 5-8 years command ₹12-20 LPA. Lead CFD specialists and managers with 10+ years earn ₹20-35 LPA. Freelance CFD consultants can charge ₹1,000-5,000 per hour depending on project complexity. Metropolitan cities (Bangalore, Pune, Mumbai) offer higher salaries compared to tier-2 cities.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">How much does a CFD engineer earn in India?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">CFD engineer salaries in India vary by experience, location, and industry. Fresh graduates with CFD skills earn ₹3.5-6 LPA. Engineers with 2-4 years experience make ₹6-12 LPA. Senior CFD engineers with 5-8 years command ₹12-20 LPA. Lead CFD specialists and managers with 10+ years earn ₹20-35 LPA. Freelance CFD consultants can charge ₹1,000-5,000 per hour depending on project complexity. Metropolitan cities (Bangalore, Pune, Mumbai) offer higher salaries compared to tier-2 cities.</p>
+                    </div>
                 </div>
 
                 <!-- FAQ 10 -->
-                <div class="faq-item" style="background: var(--card-bg); border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; border: 2px solid var(--card-border); transition: all 0.3s;">
-                    <h3 style="color: var(--velocity-cyan); margin-bottom: 1.2rem; font-size: 1.6rem; font-weight: 700;">What is the difference between CFD and CAD?</h3>
-                    <p style="color: var(--text-light); line-height: 1.9; font-size: 1.1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);">CAD (Computer-Aided Design) and CFD serve different purposes. CAD software (AutoCAD, SolidWorks, CATIA) is used for creating geometric models, 3D designs, and technical drawings of products and structures. CFD software (ANSYS Fluent, OpenFOAM) analyzes how fluids flow through or around these CAD geometries, simulating physics-based behavior. In typical workflows, engineers first create geometry in CAD, then import it into CFD software for flow analysis. CAD focuses on design creation; CFD focuses on performance simulation and optimization.</p>
+                <div class="faq-accordion" onclick="toggleFAQ(this)" style="background: var(--card-bg); border-radius: 15px; padding: 1.5rem 2rem; margin-bottom: 1rem; border: 2px solid var(--card-border); cursor: pointer; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="color: var(--velocity-cyan); font-size: 1.3rem; font-weight: 700; margin: 0;">What is the difference between CFD and CAD?</h3>
+                        <span class="faq-icon" style="color: var(--velocity-cyan); font-size: 1.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                        <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 229, 255, 0.2);">CAD (Computer-Aided Design) and CFD serve different purposes. CAD software (AutoCAD, SolidWorks, CATIA) is used for creating geometric models, 3D designs, and technical drawings of products and structures. CFD software (ANSYS Fluent, OpenFOAM) analyzes how fluids flow through or around these CAD geometries, simulating physics-based behavior. In typical workflows, engineers first create geometry in CAD, then import it into CFD software for flow analysis. CAD focuses on design creation; CFD focuses on performance simulation and optimization.</p>
+                    </div>
                 </div>
 
             </div>
         </section>
-
 
         <!-- Contact Section -->
         <section id="contact" class="scroll-animate">
@@ -1399,6 +1448,32 @@
     </div>
 
     <!-- JavaScript -->
+    // FAQ Accordion Toggle Function
+function toggleFAQ(element) {
+    const answer = element.querySelector('.faq-answer');
+    const icon = element.querySelector('.faq-icon');
+    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+    
+    // Close all other FAQs
+    document.querySelectorAll('.faq-answer').forEach(faq => {
+        faq.style.maxHeight = '0';
+    });
+    document.querySelectorAll('.faq-icon').forEach(i => {
+        i.style.transform = 'rotate(0deg)';
+    });
+    
+    // Toggle current FAQ
+    if (!isOpen) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+        element.style.borderColor = 'var(--velocity-cyan)';
+    } else {
+        answer.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+        element.style.borderColor = 'var(--card-border)';
+    }
+}
+
     <script>
         // Particle Animation
         const canvas = document.getElementById('particleCanvas');
@@ -1591,6 +1666,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
